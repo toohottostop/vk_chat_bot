@@ -1,0 +1,118 @@
+TOKEN = ''
+GROUP_ID = ''
+YANDEX_KEY = ''
+
+INTENTS = [
+    {
+        'name': 'Приветствие',
+        'tokens': ('привет', 'приветсвтую', 'здравствуйте', 'старт', 'начать', 'поехали', 'погнали', 'полетели'),
+        'scenario': None,
+        'answer': 'Вас приветсвует бот по заказу авиабилетов.\n1.Наберите /ticket, чтобы заказать билет\n2.Наберите '
+                  '/help для получения инструкций по работе бота'
+    },
+    {
+        'name': 'Помощь',
+        'tokens': ('/h', '/help', 'помощь', '2'),
+        'scenario': None,
+        'answer': 'Бот по заказу авиабилетов.\nНаберите /ticket, чтобы заказать билет'
+    },
+    {
+        'name': 'Заказ билета',
+        'tokens': ('/t', '/ticket', 'заказ', 'регистрация', '1'),
+        'scenario': 'registration',
+        'answer': None
+    },
+]
+
+SCENARIO = {
+    'registration': {
+        'first_step': 'step1',
+        'steps': {
+            'step1': {
+                'text': 'Введите название города отправления',
+                'handler': 'from_city_handler',
+                'failure_text_1': 'Неправльно введённый город, попробуйте ещё раз',
+                'failure_text_2': 'Введите номер города из предложенных:\n{city_from}',
+                'next_step': 'step2'
+            },
+            'step2': {
+                'text': 'Вы выбрали {city_from}\n\nВведите название города прибытия',
+                'handler': 'city_to_handler',
+                'failure_text_1': 'Неправльно введённый город, попробуйте ещё раз',
+                'failure_text_2': 'Введите номер города из предложенных:\n{city_to}',
+                'next_step': 'step3'
+            },
+            'step3': {
+                'text': 'Вы выбрали {city_to}\n\nВведите дату отправления в формате [ГГГГ-ММ-ДД]',
+                'handler': 'date_handler',
+                'additional_function': 'check_flight_between_cities',
+                'failure_text_1': 'Неправильно введённая дата, попробуйте ещё раз',
+                'failure_additional_function': 'Между выбранными городами нет рейса\nПопробуйте ещё раз.\n '
+                                  '1.Наберите /ticket, чтобы заказать билет\n'
+                                  '2.Наберите /help для получения инструкций по работе бота',
+                'next_step': 'step4'
+            },
+            'step4': {
+                'text': 'Введите номер рейса из предложенных:\n\n{schedule}',
+                'handler': 'schedule_handler',
+                'additional_function': 'schedule',
+                'failure_text_1': 'Вы выбрали неправильный рейс, попробуйте ещё раз',
+                'failure_additional_function': 'Нет рейсов на выбранную дату\nПопробуйте ещё раз.\n'
+                                  '1.Наберите /ticket, чтобы заказать билет\n'
+                                  '2.Наберите /help для получения инструкций по работе бота',
+                'next_step': 'step5'
+            },
+            'step5': {
+                'text': 'Вы выбрали рейс: {flight_number} {city_from} - {city_to}\n\n'
+                        'Введите количество мест (от 1 до 5)',
+                'handler': 'seats_handler',
+                'failure_text_1': 'Выбрано неправильное количество мест. попробуйте ещё раз',
+                'next_step': 'step6'
+            },
+            'step6': {
+                'text': 'Вы выбрали {seats} мест\n\nНапишите комментарий к заказу (до 500 символов)',
+                'handler': 'comment_handler',
+                'failure_text_1': 'Неправильный комментарий, попробуйте ещё раз',
+                'next_step': 'step7'
+            },
+            'step7': {
+                'text': 'Подтвердить введённые данные?[да/нет]',
+                'handler': 'confirm_handler',
+                'failure_text_1': 'Нужно выбрать да или нет, попробуйте ещё раз',
+                'failure_text_2': '1.Наберите /ticket, чтобы заказать билет\n'
+                                  '2.Наберите /help для получения инструкций по работе бота',
+                'next_step': 'step8'
+            },
+            'step8': {
+                'text': 'Введите ваш номер телефона',
+                'handler': 'phone_handler',
+                'failure_text_1': 'Неправильно введённый номер телефона, попробуйте ещё раз',
+                'next_step': 'step9'
+            },
+            'step9': {
+                'text': 'Введите ФИО на кого зарегистрировать',
+                'handler': 'fio_handler',
+                'failure_text_1': 'Неправильно введённое ФИО, попробуйте ещё раз',
+                'next_step': 'step10'
+            },
+            'step10': {
+                'text': 'С вами свяжутся по телефону {phone}',
+                'image': 'generate_ticket_handler',
+                'handler': None,
+                'failure_image': 'Скажите менеджеру, что не удалось сгенерировать билет',
+                'next_step': None
+            },
+        }
+    }
+}
+
+RESTART_TOKENS = ['/t', '/ticket', '/h', '/help', 'заказ', 'регистрация', 'помощь', 'заново', 'снова', 'нет']
+RESTART_TEXT = '/ticket, чтобы заказать билет\n/help для получения инструкций по работе бота'
+DEFAULT_ANSWER = 'Не понимаю что вы говорите'
+
+DB_CONFIG = dict(provider='',
+                 user='',
+                 password='',
+                 host='',
+                 database=''
+                 )
