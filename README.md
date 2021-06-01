@@ -39,14 +39,20 @@ Libs:
 - coverage
 - pony ORM
 ## Installation
-1. Make dir and jump into it `$mkdir vk_chat_bot && cd vk_chat_bot`
-2. Clone repository`git clone https://github.com/toohottostop/vk_chat_bot.git`
-3. Install virtual environment package `$sudo apt install python3-virtualenv`    
-Set your virtual environment package `$python3 -m virtualenv <name_of_virtualenv>`  
-Activate virtual environment `$source <name_of_virtualenv>/bin/activate`
-4. Install requirements `pip install -r requirements.txt`
-5. Set your vk token - `TOKEN`, vk group id - `GROUP_ID`, yandex API token - `YANDEX_KEY` in `settings.py`
-6. Set your data base in `settings.py`(in project I used Postgres, but you can choose [another one](http://docs.peewee-orm.com/en/latest/peewee/database.html#initializing-a-database))  
+1. Make dir and jump into it  
+`$mkdir vk_chat_bot && cd vk_chat_bot`
+3. Clone repository  
+`git clone https://github.com/toohottostop/vk_chat_bot.git`
+5. Install virtual environment package  
+`$sudo apt install python3-virtualenv`    
+Set your virtual environment package  
+`$python3 -m virtualenv <name_of_virtualenv>`  
+Activate virtual environment  
+`$source <name_of_virtualenv>/bin/activate`
+4. Install requirements  
+`pip install -r requirements.txt`
+6. Set your vk token - `TOKEN`, vk group id - `GROUP_ID`, yandex API token - `YANDEX_KEY` in `settings.py`
+7. Set your data base in `settings.py`(in project I used Postgres, but you can choose [another one](http://docs.peewee-orm.com/en/latest/peewee/database.html#initializing-a-database))  
 `DB_CONFIG = dict(provider='',
                  user='',
                  password='',
