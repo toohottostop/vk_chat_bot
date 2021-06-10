@@ -1,6 +1,8 @@
 # Vk chat bot
 Bot follow scenario for ordering tickets through vk.com.  
 
+[Demonstration](https://youtu.be/BRQvbkuw5W8)
+
 **Bot supports commands:**
 - '/t', '/ticket', 'заказ', 'регистрация', '1'  — start scenario;
 - '/h', '/help', 'помощь', '2' — instruction about the work of the bot.
@@ -18,7 +20,8 @@ Bot follow scenario for ordering tickets through vk.com.
 8. Request a phone number.
 9. Inform user that he will be contacted by the entered number.
 
-If a command (/ ticket or / help) is entered during a script, the script stops and the command is executed.
+If a command (/ ticket or / help) is entered during a script, the script stops and the command is executed.  
+
 ## What used?
 Pytnon:
 [pytnon 3.8.5](https://www.python.org/downloads/release/python-385/)  
